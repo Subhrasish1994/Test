@@ -1,0 +1,356 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+1.  Install the package Biostrings which provides the tools to work with sequences. This allows working with one or more multiple DNA sequences. Associated packages are also downloaded to aid Biostrings.
+
+```{r}
+if (!require("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+
+BiocManager::install("Biostrings")
+```
+
+```{r}
+library(Biostrings)
+```
+
+```{r}
+browseVignettes("Biostrings")
+```
+
+2.  Installation of ShortRead that allows us to input fastq files on R. The dependencies are also downloaded with the same.
+
+```{r}
+if (!require("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+
+BiocManager::install("ShortRead")
+```
+
+```{r}
+library(ShortRead)
+```
+
+3.  BSgenome requires the analysis of large whole-genome sequences. Dependencies are also downloaded to aid the package.
+
+```{r}
+if (!require("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+
+BiocManager::install("BSgenome")
+```
+
+```{r}
+require(rtracklayer)
+library(BSgenome)
+```
+
+4.  Use the folder name to import the data using the local pathname. readFastq() reads each of the files from q2_fastqs folder.
+
+```{r}
+fastqDir <- file.path("/Users/subhrasishchakraborty/Desktop/q2_fastqs")
+fastqFiles <- dir(fastqDir,full=TRUE)
+fq_1 <- readFastq(fastqFiles[1])
+fq_1
+```
+
+```{r}
+fq_2 <- readFastq(fastqFiles[2])
+fq_2
+```
+
+A sample of the genomic data from fastq_runid_d0ad83d72d7b647a6704ae6266154f5d73240534_0\_0. fastq for the first three rows. The figure below represents the A, T, G and C gene sequences for the first five rows of the data.
+
+```{r}
+head(sread(fq_2),5)
+```
+
+```{r}
+head(quality(fq_2),3)
+```
+
+```{r}
+head(id(fq_2),3)
+```
+
+```{r}
+table(width(fq_2))
+```
+
+```{r}
+genomic_seq_1 <- alphabetByCycle(sread(fq_1))
+genomic_seq_1
+```
+
+```{r}
+genomic_seq_2 <- alphabetByCycle(sread(fq_2))
+genomic_seq_2
+```
+
+```{r}
+matplot(t(genomic_seq_1[c("A","T","G","C"),]),type = "l")
+matplot(t(genomic_seq_2[c("A","T","G","C"),]),type = "l")
+```
+
+```{r}
+fq_3 <- readFastq(fastqFiles[3])
+fq_3
+```
+
+```{r}
+head(sread(fq_3),5)
+```
+
+```{r}
+genomic_seq_3 <- alphabetByCycle(sread(fq_3))
+genomic_seq_3
+```
+
+```{r}
+matplot(t(genomic_seq_3[c("A","T","G","C"),]),type = "l")
+```
+
+```{r}
+fq_4 <- readFastq(fastqFiles[4])
+fq_4
+```
+
+```{r}
+genomic_seq_4 <- alphabetByCycle(sread(fq_4))
+matplot(t(genomic_seq_4[c("A","T","G","C"),]),type = "l")
+```
+
+Analysis of fastq_runid_d0ad83d72d7b647a6704ae6266154f5d73240534_2\_0.fastq which is the fifth file of the file. The plot below represents the reads of the sequences with the number of cycles.
+
+```{r}
+fq_5 <- readFastq(fastqFiles[5])
+genomic_seq_5 <- alphabetByCycle(sread(fq_5))
+matplot(t(genomic_seq_5[c("A","T","G","C"),]),type = "l")
+fq_5
+```
+
+Analysis of fastq_runid_d0ad83d72d7b647a6704ae6266154f5d73240534_3\_0.fastq which is the fifth file of the file. The plot below represents the reads of the sequences with the number of cycles.
+
+```{r}
+fq_6 <- readFastq(fastqFiles[6])
+genomic_seq_6 <- alphabetByCycle(sread(fq_6))
+matplot(t(genomic_seq_6[c("A","T","G","C"),]),type = "l")
+fq_6
+```
+
+Analysis of fastq_runid_d0ad83d72d7b647a6704ae6266154f5d73240534_4\_0.fastq which is the fifth file of the file. The plot below represents the reads of the sequences with the number of cycles.
+
+```{r}
+fq_7 <- readFastq(fastqFiles[7])
+genomic_seq_7 <- alphabetByCycle(sread(fq_7))
+matplot(t(genomic_seq_7[c("A","T","G","C"),]),type = "l")
+fq_7
+```
+
+Analysis of fastq_runid_d0ad83d72d7b647a6704ae6266154f5d73240534_5\_0.fastq
+
+```{r}
+fq_8 <- readFastq(fastqFiles[8])
+genomic_seq_8 <- alphabetByCycle(sread(fq_8))
+matplot(t(genomic_seq_8[c("A","T","G","C"),]),type = "l")
+fq_8
+```
+
+Analysis of fastq_runid_d0ad83d72d7b647a6704ae6266154f5d73240534_5\_0.fastq
+
+```{r}
+fq_9 <- readFastq(fastqFiles[9])
+genomic_seq_9 <- alphabetByCycle(sread(fq_9))
+matplot(t(genomic_seq_9[c("A","T","G","C"),]),type = "l")
+fq_9
+```
+
+Analysis of fastq_runid_d0ad83d72d7b647a6704ae6266154f5d73240534_6\_0.fastq
+
+```{r}
+fq_10 <- readFastq(fastqFiles[10])
+genomic_seq_10 <- alphabetByCycle(sread(fq_10))
+matplot(t(genomic_seq_10[c("A","T","G","C"),]),type = "l")
+fq_10
+```
+
+Analysis of fastq_runid_d0ad83d72d7b647a6704ae6266154f5d73240534_7\_0.fastq
+
+```{r}
+fq_11 <- readFastq(fastqFiles[11])
+genomic_seq_11 <- alphabetByCycle(sread(fq_11))
+matplot(t(genomic_seq_11[c("A","T","G","C"),]),type = "l")
+fq_11
+```
+
+Analysis of fastq_runid_d0ad83d72d7b647a6704ae6266154f5d73240534_8\_0.fastq
+
+```{r}
+fq_12 <- readFastq(fastqFiles[12])
+genomic_seq_12 <- alphabetByCycle(sread(fq_12))
+matplot(t(genomic_seq_12[c("A","T","G","C"),]),type = "l")
+fq_12
+```
+
+Analysis of fastq_runid_d0ad83d72d7b647a6704ae6266154f5d73240534_9\_0.fastq
+
+```{r}
+fq_13 <- readFastq(fastqFiles[13])
+genomic_seq_13 <- alphabetByCycle(sread(fq_13))
+matplot(t(genomic_seq_13[c("A","T","G","C"),]),type = "l")
+fq_13
+```
+
+Analysis of fastq_runid_d0ad83d72d7b647a6704ae6266154f5d73240534_10_0.fastq
+
+```{r}
+fq_14 <- readFastq(fastqFiles[14])
+genomic_seq_14 <- alphabetByCycle(sread(fq_14))
+matplot(t(genomic_seq_14[c("A","T","G","C"),]),type = "l")
+fq_14
+```
+
+Analysis of fastq_runid_d0ad83d72d7b647a6704ae6266154f5d73240534_11_0.fastq
+
+```{r}
+fq_15 <- readFastq(fastqFiles[15])
+genomic_seq_15 <- alphabetByCycle(sread(fq_15))
+matplot(t(genomic_seq_15[c("A","T","G","C"),]),type = "l")
+fq_15
+```
+
+Analysis of fastq_runid_d0ad83d72d7b647a6704ae6266154f5d73240534_12_0.fastq\
+
+```{r}
+fq_16 <- readFastq(fastqFiles[16])
+genomic_seq_16 <- alphabetByCycle(sread(fq_16))
+matplot(t(genomic_seq_16[c("A","T","G","C"),]),type = "l")
+fq_16
+```
+
+fastq_runid_d0ad83d72d7b647a6704ae6266154f5d73240534_100_0.fastq
+
+```{r}
+fq_17 <- readFastq(fastqFiles[17])
+genomic_seq_17 <- alphabetByCycle(sread(fq_17))
+matplot(t(genomic_seq_17[c("A","T","G","C"),]),type = "l")
+fq_17
+```
+
+```{r}
+fq_18 <- readFastq(fastqFiles[18])
+genomic_seq_18 <- alphabetByCycle(sread(fq_18))
+matplot(t(genomic_seq_18[c("A","T","G","C"),]),type = "l")
+fq_18
+```
+
+```{r}
+fq_19 <- readFastq(fastqFiles[19])
+genomic_seq_19 <- alphabetByCycle(sread(fq_19))
+matplot(t(genomic_seq_19[c("A","T","G","C"),]),type = "l")
+fq_19
+```
+
+```{r}
+fq_20 <- readFastq(fastqFiles[20])
+genomic_seq_20 <- alphabetByCycle(sread(fq_20))
+matplot(t(genomic_seq_20[c("A","T","G","C"),]),type = "l")
+fq_20
+```
+
+```{r}
+#par(mfrow=c(4,5))
+matplot(t(genomic_seq_1[c("A","T","G","C"),]),type = "l",xlab = "width (in cycles)")
+matplot(t(genomic_seq_2[c("A","T","G","C"),]),type = "l",xlab = "width (in cycles)")
+matplot(t(genomic_seq_3[c("A","T","G","C"),]),type = "l",xlab = "width (in cycles)")
+matplot(t(genomic_seq_4[c("A","T","G","C"),]),type = "l",xlab = "width (in cycles)")
+matplot(t(genomic_seq_5[c("A","T","G","C"),]),type = "l",xlab = "width (in cycles)")
+matplot(t(genomic_seq_6[c("A","T","G","C"),]),type = "l",xlab = "width (in cycles)")
+matplot(t(genomic_seq_7[c("A","T","G","C"),]),type = "l",xlab = "width (in cycles)")
+matplot(t(genomic_seq_8[c("A","T","G","C"),]),type = "l",xlab = "width (in cycles)")
+matplot(t(genomic_seq_9[c("A","T","G","C"),]),type = "l",xlab = "width (in cycles)h")
+matplot(t(genomic_seq_10[c("A","T","G","C"),]),type = "l",xlab = "width (in cycles)")
+matplot(t(genomic_seq_11[c("A","T","G","C"),]),type = "l",xlab = "width (in cycles)")
+matplot(t(genomic_seq_12[c("A","T","G","C"),]),type = "l",xlab = "width (in cycles)")
+matplot(t(genomic_seq_13[c("A","T","G","C"),]),type = "l",xlab = "width (in cycles)")
+matplot(t(genomic_seq_14[c("A","T","G","C"),]),type = "l",xlab = "width (in cycles)")
+matplot(t(genomic_seq_15[c("A","T","G","C"),]),type = "l",xlab = "width (in cycles)")
+matplot(t(genomic_seq_16[c("A","T","G","C"),]),type = "l",xlab = "width (in cycles)")
+matplot(t(genomic_seq_17[c("A","T","G","C"),]),type = "l",xlab = "width (in cycles)")
+matplot(t(genomic_seq_18[c("A","T","G","C"),]),type = "l",xlab = "width (in cycles)")
+matplot(t(genomic_seq_19[c("A","T","G","C"),]),type = "l",xlab = "width (in cycles)")
+matplot(t(genomic_seq_20[c("A","T","G","C"),]),type = "l",xlab = "width (in cycles)")
+```
+
+5.  Individual analysis of the fastq files and summarize the characteristics of the genomic sequences.
+
+```{r}
+fq_1
+fq_1_summary <- qa(fq_1,fastqDir)
+report(fq_1_summary,dest = "/Users/subhrasishchakraborty/Desktop/q2_fastqs/fq_1")
+```
+
+```{r}
+hist(width(fq_1),breaks = 100,xlab="width",main = "Histogram")
+```
+
+```{r}
+head(sread(fq_1))
+```
+
+```{r}
+fq_2
+fq_2_summary <- qa(fq_2,fastqDir)
+report(fq_2_summary,dest = "/Users/subhrasishchakraborty/Desktop/q2_fastqs/fq_2")
+```
+
+```{r}
+hist(width(fq_2),breaks = 100,xlab="width",main = "Histogram")
+```
+
+```{r}
+fq_3
+fq_3_summary <- qa(fq_3,fastqDir)
+report(fq_3_summary,dest = "/Users/subhrasishchakraborty/Desktop/q2_fastqs/fq_3")
+```
+
+```{r}
+head(sread(fq_3))
+```
+
+```{r}
+fq_4_summary <- qa(fq_4,fastqDir)
+report(fq_4_summary,dest = "/Users/subhrasishchakraborty/Desktop/q2_fastqs/fq_4")
+```
+
+```{r}
+fq_5_summary <- qa(fq_5,fastqDir)
+report(fq_5_summary,dest = "/Users/subhrasishchakraborty/Desktop/q2_fastqs/fq_5")
+```
+
+```{r}
+fq_6_summary <- qa(fq_6,fastqDir)
+report(fq_6_summary,dest = "/Users/subhrasishchakraborty/Desktop/q2_fastqs/fq_6")
+```
+
+```{r}
+fq_20_summary <- qa(fq_20,fastqDir)
+report(fq_20_summary,dest = "/Users/subhrasishchakraborty/Desktop/q2_fastqs/fq_20")
+```
+
+Sample analysis of fastq_runid_d0ad83d72d7b647a6704ae6266154f5d73240534_103_0.fastq. We have shown the quality scores for this case and we have taken a sample of 300 rows among 3113 reads and 200 among 4406 cycles.
+
+```{r}
+fq_20.quality <- as(quality(fq_20),"matrix")
+boxplot(fq_20.quality[sample(nrow(fq_20.quality),300), 1:200],out.cex=0.5)
+```
+
+```{r}
+View(as(quality(fq_20),"matrix"))
+```
+
+```{r}
+fq_20
+```
